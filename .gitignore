@@ -1,0 +1,13 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Sensitive files
+salt.bin
+vault.enc
+
+# IDE / OS files
+.vscode/
+.DS_Store
+Thumbs.db
