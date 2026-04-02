@@ -35,7 +35,7 @@ It prioritizes clarity and correctness over convenience.
 📝 Edit existing entries
 🗑️ Delete credentials securely
 🎲 Generate strong random passwords
-📋 Copy passwords to clipboard (optional)
+📋 Copy passwords to clipboard with auto-clear (optional)
 🚫 Zero-knowledge design (master password never stored)
 
 ────────────────────────────────────────
@@ -86,6 +86,18 @@ Optional clipboard support:
 
 pip install pyperclip
 
+Optional development checks:
+
+python -m unittest discover -s tests -v
+
+Runtime files generated locally:
+
+master.hash
+salt.bin
+vault.enc
+
+These files are ignored by git and should stay private on your machine.
+
 ────────────────────────────────────────
 
 🚀 RUNNING THE APPLICATION
@@ -93,7 +105,7 @@ pip install pyperclip
 git clone https://github.com/eenock/password-manager.git
 
 cd password-manager
-python password_manager.py
+python -m password_manager
 
 On first run, you will be prompted to create a master password.
 This password encrypts all stored credentials.
@@ -118,7 +130,12 @@ Passwords are decrypted only in memory and never written in plaintext.
 
 📁 FILE STRUCTURE
 
-password_manager.py → Main application logic
+password_manager/ → Python package
+password_manager/cli.py → Interactive terminal interface
+password_manager/manager.py → Vault, crypto, and storage logic
+password_manager/__main__.py → `python -m password_manager` entrypoint
+tests/test_manager.py → Unit tests for core behavior
+pyproject.toml → Project metadata and dependencies
 master.hash → Derived master password hash
 salt.bin → Random salt for key derivation
 vault.enc → Encrypted credential vault
